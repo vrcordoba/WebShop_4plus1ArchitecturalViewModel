@@ -1,0 +1,39 @@
+@startuml
+|Interfaz\nAdministración|
+start
+:Introducir datos del\nproducto a añadir;
+|Balanceador|
+:Enviar petición\nal gestor recibido\ndesde el registro;
+|Gestor\nde productos|
+:Construir query a la BBDD\npara ver si el\nproducto ya existe;
+|BBDD productos|
+:Procesar petición;
+|Gestor\nde productos|
+if (¿Producto ya existente?) then (No)
+   |Balanceador|
+   :Propagar producto nuevo;
+   |Interfaz\nAdministración|
+   :Introducir\ntodos los datos\ndel producto\nnuevo;
+   |Balanceador|
+   :Enviar petición\nal anterior gestor;
+   |Gestor\nde productos|
+   :Construir query a la BBDD\npara añadir\nnuevo producto;
+else (Sí)
+   |Balanceador|
+   :Propagar producto\nexistente;
+   |Interfaz\nAdministración|
+   :Introducir nuevas cantidades\ndel producto;
+   |Balanceador|
+   :Enviar petición\nal anterior gestor;
+   |Gestor\nde productos|
+   :Construir query a la BBDD\npara actualizar\ncantidades;
+endif
+|BBDD productos|
+:Procesar petición;
+|Gestor\nde productos|
+:Propagar finalización\nde la operación;
+|Balanceador|
+:Propagar finalización\nde la operación;
+|Interfaz\nAdministración|
+stop
+@enduml

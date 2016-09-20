@@ -1,0 +1,20 @@
+@startuml
+|Interfaz\nAdministración|
+start
+:Introducir imagen;
+|Balanceador|
+:Enviar imagen\nal procesador recibido\ndesde el registro;
+|Procesador de\nimágenes|
+:Crear job para\nprocesar imagen;
+fork
+   :Contestar petición;
+   |Balanceador|
+   :Propagar finalización\nde la operación;
+   |Interfaz\nAdministración|
+   stop
+fork again
+   |Procesador de\nimágenes|
+   :Procesar imagen\nen background;
+endfork
+stop
+@enduml

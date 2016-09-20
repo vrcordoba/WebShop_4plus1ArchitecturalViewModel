@@ -1,0 +1,30 @@
+@startuml
+|Interfaz Web|
+start
+:Buscar producto\ncon criterio de búsqueda X;
+|Balanceador|
+:Enviar petición\nal inventario recibido\ndesde el registro;
+|Inventario\nde productos|
+:Construir query a la BBDD\ncon el criterio de búsqueda X;
+|BBDD productos|
+:Procesar petición;
+|Inventario\nde productos|
+:Construir lista de\nproductos que cumplen criterio;
+|Balanceador|
+:Propagar resultado;
+|Interfaz Web|
+:Recuperar imágenes\nde los productos;
+|Balanceador|
+:Enviar petición\nal buscador de imágenes\nrecibido desde el registro;
+|Buscador de\nimágenes|
+:Construir query a la BBDD\ncon el criterio de búsqueda X;
+|BBDD imágenes|
+:Procesar petición;
+|Buscador de\nimágenes|
+:Construir lista de\nimágenes que cumplen criterio;
+|Balanceador|
+:Propagar resultado;
+|Interfaz Web|
+:Mostrar productos\ne imágenes;
+stop
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+skinparam componentStyle uml2
+
+[Interfaz Web] -down-> [Balanceador de carga] 
+[Balanceador de carga] -down-> [Gestor productos]
+[Balanceador de carga] -down-> [Inventario productos]
+
+[Balanceador de carga] -down-> [Pasarela de pago A]
+[Balanceador de carga] -down-> [Pasarela de pago B]
+
+[Balanceador de carga] -down-> [Procesador de imágenes]
+[Balanceador de carga] -down-> [Buscador de imágenes]
+
+node "Servicios auxiliares" {
+   [Monitor de servicios]
+   [Registro de servicios]
+   [Autenticación]
+   [Logger]
+   [Cola de mensajes]
+}
+
+database "Productos"
+[Gestor productos] -down-> Productos
+[Inventario productos] -down-> Productos
+
+database "Imágenes"
+[Procesador de imágenes] -down-> Imágenes
+[Buscador de imágenes] -down-> Imágenes
+@enduml

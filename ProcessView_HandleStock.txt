@@ -1,0 +1,30 @@
+@startuml
+|Interfaz\nAdministración|
+start
+:Seleccionar producto\na actualizar;
+|Balanceador|
+:Enviar petición\nal gestor recibido\ndesde el registro;
+|Gestor\nde productos|
+:Construir query a la BBDD\npara ver características\ndel producto;
+|BBDD productos|
+:Procesar petición;
+|Gestor\nde productos|
+:Construir tabla\ndel producto;
+|Balanceador|
+:Propagar tabla\ndel producto;
+|Interfaz\nAdministración|
+:Mostrar características\ndel producto;
+:Mostrar menú para\nmodificar características;
+|Balanceador|
+:Enviar petición\nde modificación\nal anterior gestor;
+|Gestor\nde productos|
+:Construir query a la BBDD\npara modificar características\ndel producto;
+|BBDD productos|
+:Procesar petición;
+|Gestor\nde productos|
+:Propagar finalización\nde la operación;
+|Balanceador|
+:Propagar finalización\nde la operación;
+|Interfaz\nAdministración|
+stop
+@enduml

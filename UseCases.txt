@@ -1,0 +1,21 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+actor Usuario
+actor Banco_A
+actor Banco_B
+actor Administrador_Tienda
+rectangle "Tienda online" {
+  Usuario --> (Listar productos)
+  Usuario --> (Buscar productos)
+  Usuario --> (Añadir producto a la cesta de la compra)
+  Usuario --> (Pagar cesta de la compra)
+  (Pago Banco A) .> (Pagar cesta de la compra) : extends
+  (Pagar cesta de la compra) <. (Pago Banco B) : extends
+  (Pago Banco A) --> Banco_A
+  (Pago Banco B) --> Banco_B
+  (Gestionar stock) <-- Administrador_Tienda
+  (Añadir producto) <-- Administrador_Tienda
+  (Añadir imagen a producto) <-- Administrador_Tienda
+}
+@enduml

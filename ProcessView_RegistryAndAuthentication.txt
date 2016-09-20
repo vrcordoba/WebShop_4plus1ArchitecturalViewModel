@@ -1,0 +1,45 @@
+@startuml
+|Interfaz Web|
+|Balanceador|
+|Autenticador|
+|Registro de\nservicios|
+|Microservicio|
+start
+:Registrarse;
+|Registro de\nservicios|
+:Registrar servicio;
+|Microservicio|
+stop
+|Interfaz Web|
+start
+:Ejecuta servicio;
+|Balanceador|
+:autenticar\npetición;
+|Autenticador|
+if (¿Es una petición válida?) then (false)
+   |Balanceador|
+   :Propagar\nerror;
+   |Interfaz Web|
+   :Mostrar error:\nautenticación;
+   stop
+else (true)
+   |Balanceador|
+   :Obtener\nejecutor;
+   |Registro de\nservicios|
+   if (¿Hay microservicio registrado?) then (false)
+      |Balanceador|
+      :Propagar\nerror;
+      |Interfaz Web|
+      :Mostrar error:\nNo hay recursos;
+      stop
+   else (true)
+      |Balanceador|
+      :Mandar petición\na microservicio\ndevuelto por\nel registro;
+      |Microservicio|
+      :Realizar servicio;
+      |Balanceador|
+      :Propagar resultado;
+      |Interfaz Web|
+      :Mostrar resultado\ndel servicio;
+      stop
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+|Interfaz Web|
+start
+:Listar\nproductos;
+|Balanceador|
+:Enviar petición\nal inventario recibido\ndesde el registro;
+|Inventario\nde productos|
+:Consultar productos\nen base de datos;
+|BBDD productos|
+:Procesar petición;
+|Inventario\nde productos|
+:Construir lista de\nproductos;
+|Balanceador|
+:Propagar resultado;
+|Interfaz Web|
+:Recuperar imágenes\nde los productos;
+|Balanceador|
+:Enviar petición\nal buscador de imágenes\nrecibido desde el registro;
+|Buscador de\nimágenes|
+:Consultar imágenes\nen base de datos;
+|BBDD imágenes|
+:Procesar petición;
+|Buscador de\nimágenes|
+:Construir lista de\nimágenes;
+|Balanceador|
+:Propagar resultado;
+|Interfaz Web|
+:Mostrar productos\ne imágenes;
+stop
+@enduml

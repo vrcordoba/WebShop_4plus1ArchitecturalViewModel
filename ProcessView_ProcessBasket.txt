@@ -1,0 +1,54 @@
+@startuml
+|Interfaz Web|
+start
+:Procesar\ncesta;
+|Balanceador|
+:Enviar petición\nal inventario usado al\nañadir productos;
+|Inventario\nde productos|
+:Construir cesta de\nla compra;
+|Balanceador|
+:Propagar cesta;
+|Interfaz Web|
+:Mostrar cesta de la\ncompra actualizada;
+:Pedir confirmación;
+:Mostrar menú de\nopciones de envío;
+:Mostrar menú para\nintroducir dirección\nde envío;
+:Mostrar opciones\nde pago;
+if (¿Qué banco va a\nusar el usuario?) then (Banco A)
+   |Pasarela de pago A|
+   :Comprobar conexión\ncon el exterior;
+   if (¿Hay conexión?) then (No)
+      |Balanceador|
+      :Propagar error\nconexión;
+      |Interfaz Web|
+      :Mostrar error:\nNo está disponible\nel método de pago;
+      stop
+   else (Sí)
+      |Balanceador|
+      :Propagar éxito\nen la conexión;
+      |Interfaz Web|
+      :Pedir datos\nde autenticación;
+      |Pasarela de pago A|
+      :Autenticar usuario;
+      if (¿Es un usuario válido?) then (No)
+         |Balanceador|
+         :Propagar error\nautenticación;
+         |Interfaz Web|
+         :Mostrar error:\nUsuario\nno válido;
+         stop
+      else (Sí)
+         |Pasarela de pago A|
+         :Realizar pago;
+         |Balanceador|
+         :Propagar éxito\nen el pago;
+         |Interfaz Web|
+         :Mostrar operación exitosa;
+         stop
+      endif
+   endif
+else (Banco B)
+   |Pasarela de pago B|
+   :Proceso similar al banco A;
+   stop
+endif
+@enduml

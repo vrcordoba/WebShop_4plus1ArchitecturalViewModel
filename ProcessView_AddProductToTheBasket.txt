@@ -1,0 +1,34 @@
+@startuml
+|Interfaz Web|
+start
+:Añadir producto\nactual a la cesta;
+|Balanceador|
+:Enviar petición\nal inventario recibido\ndesde el registro;
+|Inventario\nde productos|
+:Construir query a la BBDD\npara ver existencias;
+|BBDD productos|
+:Procesar petición;
+|Inventario\nde productos|
+if (¿Hay producto\ndisponible?) then (No disponible)
+   |Balanceador|
+   :Propagar error;
+   |Interfaz Web|
+   :Mostrar error:\nNo hay existencias;
+   stop
+else (Disponible)
+   |Inventario\nde productos|
+   :Construir query a la BBDD\npara actualizar existencias;
+   |BBDD productos|
+   :Procesar petición;
+   |Inventario\nde productos|
+   :Construir query a la BBDD\npara recuperar precio;
+   |BBDD productos|
+   :Procesar petición;
+   |Inventario\nde productos|
+   :Actualizar cesta de la\ncompra del usuario X;
+   |Balanceador|
+   :Propagar actualización;
+   |Interfaz Web|
+   :Mostrar cesta de la\ncompra actualizada;
+   stop
+@enduml
