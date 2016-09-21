@@ -1,0 +1,107 @@
+@startuml
+
+artifact BalanceadorCarga
+artifact InterfazWeb
+artifact GestorProductos
+artifact InventarioProductos
+artifact PasarelaPagoA
+artifact PasarelaPagoB
+artifact ProcesadorImágenes
+artifact BuscadorImágenes
+artifact Autenticación
+database Productos
+database Imágenes
+
+InterfazWeb -0)- BalanceadorCarga
+BalanceadorCarga -0)- GestorProductos
+BalanceadorCarga -0)- InventarioProductos
+BalanceadorCarga -0)- BuscadorImágenes
+BalanceadorCarga -0)- ProcesadorImágenes
+BalanceadorCarga -0)- Autenticación
+
+PasarelaPagoB -(0- BalanceadorCarga
+PasarelaPagoA -(0- BalanceadorCarga
+
+GestorProductos -0)- Productos
+InventarioProductos -0)- Productos
+ProcesadorImágenes -0)- Imágenes
+BuscadorImágenes -0)- Imágenes
+
+artifact BalanceadorCarga {
+  component "<<executable>>\nBalanceador"
+  folder {
+    component "<<library>>\nAlgoritmos balanceo"
+    component "<<library>>\nREST"
+  }
+}
+
+artifact InterfazWeb {
+  component "<<executable>>UI"
+  folder {
+    component "<<library>>\nAngularJS"
+    component "<<library>>\nBootstrap"
+  }
+}
+
+artifact GestorProductos {
+  component "<<executable>>\nGestor"
+  folder {
+    component "<<library>>\nREST "
+  }
+  component "<<executable>>\nGestor"
+}
+
+artifact InventarioProductos {
+  component "<<executable>>\nInventario"
+  folder {
+    component "<<library>>\nREST  "
+  }
+}
+
+artifact PasarelaPagoA {
+  component "<<executable>>\nPasarelaA"
+  folder {
+    component "<<library>>\nAlgoritmos Criptografía"
+    component "<<library>>\nREST   "
+  }
+}
+
+artifact PasarelaPagoB {
+  component "<<executable>>\nPasarelaB"
+  folder {
+    component "<<library>>\nAlgoritmos Criptografía "
+    component "<<library>>\nREST    "
+  }
+}
+
+artifact ProcesadorImágenes {
+  component "<<executable>>\nProcesador"
+  folder {
+    component "<<library>>\nREST     "
+  }
+}
+
+artifact BuscadorImágenes {
+  component "<<executable>>\nBuscador"
+  folder {
+    component "<<library>>\nREST      "
+  }
+}
+
+artifact Autenticación {
+  component "<<executable>>\nAutenticador"
+  folder {
+    component "<<library>>\nOpenSSL"
+    component "<<library>>\nREST       "
+  }
+}
+
+database Productos {
+  storage MongoDB
+}
+
+database Imágenes {
+  storage "MongoDB(GridFS)"
+}
+
+@enduml

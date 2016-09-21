@@ -1,0 +1,25 @@
+@startuml
+
+node "<<device>>Intel Xeon Server  " {
+  node "<<loadbalancer system>> Balanceador" {
+  }
+}
+
+node "<<device>>Intel Xeon Server" {
+  node "<<container>>Docker Container N" {
+    node "<<execution environment>>JRE 1.8" {
+      artifact MicroservicioN.jar
+    }
+  }
+  node "<<container>>Docker Container 1" {
+    node "<<execution environment>>JRE 1.8 " {
+      artifact Microservicio1.jar
+    }
+  }
+}
+
+node "<<device>>Intel Xeon Server " {
+  node "<<database system>> MongoDB" {
+  }
+}
+@enduml
